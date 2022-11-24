@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "126697960131",
+    "project_id": "jchat-1295c",
+    "storage_bucket": "jchat-1295c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126697960131:android:8fad9aee93d6479d53a876",
+        "android_client_info": {
+          "package_name": "com.example.jchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126697960131-dtk00ulu4elf11hhen2iu5cu0ilu5j7r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jchat",
+            "certificate_hash": "435387dfb2a23f1fe7fc29bd1373e8c891e3bc9d"
+          }
+        },
+        {
+          "client_id": "126697960131-jkvvg9n0p1ue1noc1clvti4das0m640l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrFH-3-6vZ9jcbi1HiwM7ODSZN6XPlWms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126697960131-jkvvg9n0p1ue1noc1clvti4das0m640l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
