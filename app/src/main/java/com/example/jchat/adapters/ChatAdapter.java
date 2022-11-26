@@ -97,11 +97,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void setData(ChatMessage chatMessage) {
             Bitmap bitmap = getBitmapFromEncodedString(chatMessage.image);
-            Log.e("seen",chatMessage.chatId+" : adapter seen : "+chatMessage.seen);
+            Log.e("seen",chatMessage.message+" : adapter seen : "+chatMessage.seen);
             if (chatMessage.seen==true){
-                binding.imageView1.setImageResource(R.drawable.ic_baseline_done_all_24);
+                binding.imageView1.setImageResource(R.drawable.ic_baseline_done_all_blue);
             }else{
-                binding.imageView1.setImageResource(R.drawable.ic_sending);
+                binding.imageView1.setImageResource(R.drawable.ic_baseline_done_all_24);
             }
             binding.imageView.setImageBitmap(bitmap);
             binding.textMessage.setText(chatMessage.message);

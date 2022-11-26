@@ -229,7 +229,6 @@ public class ChatActivity extends BaseActivity {
                 int count = chatMessages.size();
                 for (DocumentChange documentChange : value.getDocumentChanges()) {
                     ChatMessage chatMessage = new ChatMessage();
-//                    chatMessage.seen = false;
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         chatMessage.senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
                         chatMessage.receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
@@ -240,13 +239,23 @@ public class ChatActivity extends BaseActivity {
                         preferenceManager.putString(Constants.KEY_SENDER_IDD,documentChange.getDocument().getString(Constants.KEY_SENDER_ID));
                         preferenceManager.putString(Constants.KEY_CHAT_ID, documentChange.getDocument().getId());
                         chatMessage.image = documentChange.getDocument().getString(Constants.KEY_IMAGE);
+                        chatMessage.seen = documentChange.getDocument().getBoolean(Constants.KEY_SEEN);
                         chatMessages.add(chatMessage);
                     }
                     if (documentChange.getType() == DocumentChange.Type.MODIFIED){
+                        chatMessage.senderId = documentChange.getDocument().getString(Constants.KEY_SENDER_ID);
+                        chatMessage.receiverId = documentChange.getDocument().getString(Constants.KEY_RECEIVER_ID);
+                        chatMessage.message = documentChange.getDocument().getString(Constants.KEY_MESSAGE);
+                        chatMessage.dateTime = ChatActivity.this.getReadableDateTime(documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP));
+                        chatMessage.dateObject = documentChange.getDocument().getDate(Constants.KEY_TIMESTAMP);
                         chatMessage.chatId = documentChange.getDocument().getId();
                         chatMessage.seen = documentChange.getDocument().getBoolean(Constants.KEY_SEEN);
-                        Log.e("seen","activity seen : "+chatMessage.seen);
+                        chatMessage.image = documentChange.getDocument().getString(Constants.KEY_IMAGE);
+                        chatMessage.seen = documentChange.getDocument().getBoolean(Constants.KEY_SEEN);
+                        chatMessages.set(count-1, chatMessage);
+                        Log.e("seen",chatMessage.message+" : activity seen : "+chatMessage.seen);
                         chatAdapter.notifyItemInserted(documentChange.getDocument().hashCode());
+                        chatAdapter.notifyDataSetChanged();
                     }
                 }
                 Collections.sort(chatMessages, new Comparator<ChatMessage>() {
@@ -393,14 +402,19 @@ public class ChatActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         listenAvailabilityOfReceiver();
-        String s1 = preferenceManager.getString(Constants.KEY_SENDER_IDD);
-        String r1 = receiverUser.id;
+        try {
+            String s1 = preferenceManager.getString(Constants.KEY_SENDER_IDD);
+            String r1 = receiverUser.id;
 
-        DocumentReference documentReference1 = database.collection(Constants.KEY_COLLECTION_CHAT)
-                .document(preferenceManager.getString(Constants.KEY_CHAT_ID));
+            DocumentReference documentReference1 = database.collection(Constants.KEY_COLLECTION_CHAT)
+                    .document(preferenceManager.getString(Constants.KEY_CHAT_ID));
 
-        if (s1.equals(r1)){
-            documentReference1.update(Constants.KEY_SEEN,true);
+            if (s1.equals(r1)){
+                documentReference1.update(Constants.KEY_SEEN,true);
+            }
+        }catch (NullPointerException e){
+            Log.e("n", e.getMessage());
         }
+
     }
 }
